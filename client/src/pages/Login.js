@@ -4,7 +4,6 @@ import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Spinner from '../components/Spinner';
 
-// Set the base URL for the backend API
 const API_BASE_URL = "https://fintrack-backend-6n2p.onrender.com";
 
 const Login = () => {
@@ -14,28 +13,20 @@ const Login = () => {
   const onFinish = async (values) => {
     try {
       setLoading(true);
-      // Call the login API endpoint
-      const { data } = await axios.post(`${API_BASE_URL}/users/login`, values);
+      const { data } = await axios.post(`${API_BASE_URL}/api/v1/users/login`, values);
       message.success("Login successfully");
-      // Store the user data in localStorage, omitting the password for security
       localStorage.setItem('user', JSON.stringify({ ...data.user, password: '' }));
       setLoading(false);
       navigate('/');
     } catch (err) {
       setLoading(false);
-      // Provide better error handling with descriptive messages
-      if (err.response && err.response.data) {
-        message.error(err.response.data.message);
-      } else {
-        message.error("Something went wrong. Please try again.");
-      }
+      message.error("Invalid login credentials");
       console.log(err);
     }
   };
 
   useEffect(() => {
-    // Check if the user is already logged in
-    if (typeof window !== 'undefined' && localStorage.getItem('user')) {
+    if (localStorage.getItem('user')) {
       navigate('/');
     }
   }, [navigate]);

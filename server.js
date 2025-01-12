@@ -2,48 +2,42 @@ const express = require('express');
 const cors = require('cors');
 const morgan = require('morgan');
 const dotenv = require('dotenv');
-const colors = require('colors');
-const connectDb = require("./config/connectDb");
 const path = require('path');
+const connectDb = require('./config/connectDb');
 
-//config dotenc file
+// Load environment variables
 dotenv.config();
 
-require('dotenv').config();
-
-// connecting database connection
+// Connect to the database
 connectDb();
 
-console.log('MONGO_URL:', process.env.MONGO_URL);
-
-//rest object
+// Initialize the app
 const app = express();
 
-// middleware
+// Middleware
 app.use(morgan('dev'));
 app.use(express.json());
 app.use(cors());
 
-// routes
+// Log the database URL (for debugging)
+console.log('MONGO_URL:', process.env.MONGO_URL);
 
-// transactions routes - should be defined before user routes
+// API Routes
 app.use('/api/v1/transactions', require('./routes/transactionRoute'));
-
-//user routes
 app.use('/api/v1/users', require('./routes/userRoute'));
 
-//static files
-app.use(express.static(path.join(__dirname,'./client/build')));
+// Serve static files from the React app
+app.use(express.static(path.join(__dirname, './client/build')));
 
-app.get('*', function(req, res){
-    res.sendFile(path.join(__dirname,'./client/build/index.html'));
+// Catch-all route to serve React's index.html for unknown routes
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, './client/build/index.html'));
 });
 
-//port
-const PORT = 8080 || process.env.PORT;
+// Set the port
+const PORT = process.env.PORT || 8080;
 
-// listen 
+// Start the server
 app.listen(PORT, () => {
-    console.log(`server running on port ${PORT}`);
-})
-
+  console.log(`Server running on port ${PORT}`);
+});
