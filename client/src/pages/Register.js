@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Form, Input, Button, message } from 'antd';
-import axios from 'axios';
+import api from '../api';
 import Spinner from '../components/Spinner';
-
-const API_BASE_URL = "https://fintrack-backend-6n2p.onrender.com";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -13,14 +11,14 @@ const Register = () => {
   const onFinish = async (values) => {
     try {
       setLoading(true);
-      await axios.post(`${API_BASE_URL}/api/v1/users/register`, values);
-      message.success("Registration successful");
+      await api.post('/users/register', values);
+      message.success('Registration successful');
       setLoading(false);
       navigate('/login');
     } catch (err) {
       setLoading(false);
-      message.error("Something went wrong");
-      console.log(err);
+      message.error('Something went wrong');
+      console.error(err);
     }
   };
 
