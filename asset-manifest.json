@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/Fintrack-new/static/css/main.d978ece4.css",
+    "main.js": "/Fintrack-new/static/js/main.ce9ad56b.js",
+    "static/js/453.b210d1ea.chunk.js": "/Fintrack-new/static/js/453.b210d1ea.chunk.js",
+    "static/media/expenseLogo.png": "/Fintrack-new/static/media/expenseLogo.243677fa88db44e33b6f.png",
+    "index.html": "/Fintrack-new/index.html",
+    "main.d978ece4.css.map": "/Fintrack-new/static/css/main.d978ece4.css.map",
+    "main.ce9ad56b.js.map": "/Fintrack-new/static/js/main.ce9ad56b.js.map",
+    "453.b210d1ea.chunk.js.map": "/Fintrack-new/static/js/453.b210d1ea.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.d978ece4.css",
+    "static/js/main.ce9ad56b.js"
+  ]
+}
