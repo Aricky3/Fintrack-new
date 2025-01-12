@@ -17,7 +17,7 @@
 
 A **Full Stack Expense Tracker** with full functionality like adding transactions, updating, and deleting transactions.
 
-### 🚀 Live Demo:
+### 🚀 Live Demo: https://aricky3.github.io/Fintrack-new/
 
 <!-- Check out the live demo: [Expense Tracker](https://odd-cyan-gharial-sock.cyclic.app/) -->
 <br><br>
