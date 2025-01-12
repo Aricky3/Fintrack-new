@@ -1,35 +1,45 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import { Form, Input, Button, message } from 'antd';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Spinner from '../components/Spinner';
 
+// Set the base URL for the backend API
+const API_BASE_URL = "https://fintrack-backend-6n2p.onrender.com";
+
 const Login = () => {
-
   const navigate = useNavigate();
-    const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-    const onFinish = async (values) => {
-        try{
-          setLoading(true);
-          const {data} = await axios.post('/users/login', values);
-          message.success(" Login successfully");
-          localStorage.setItem('user', JSON.stringify({...data.user,password:''}));
-          setLoading(false);
-          navigate('/');
-        }
-        catch(err){
-          setLoading(false);
-          message.error("Something went wrong");
-          console.log(err);
-        }
-      };
-   
-    useEffect(() => {
-      if(localStorage.getItem('user')){
-        navigate('/');
+  const onFinish = async (values) => {
+    try {
+      setLoading(true);
+      // Call the login API endpoint
+      const { data } = await axios.post(`${API_BASE_URL}/users/login`, values);
+      message.success("Login successfully");
+      // Store the user data in localStorage, omitting the password for security
+      localStorage.setItem('user', JSON.stringify({ ...data.user, password: '' }));
+      setLoading(false);
+      navigate('/');
+    } catch (err) {
+      setLoading(false);
+      // Provide better error handling with descriptive messages
+      if (err.response && err.response.data) {
+        message.error(err.response.data.message);
+      } else {
+        message.error("Something went wrong. Please try again.");
       }
-    },[navigate]);
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    // Check if the user is already logged in
+    if (typeof window !== 'undefined' && localStorage.getItem('user')) {
+      navigate('/');
+    }
+  }, [navigate]);
+
   return (
     <div className="flex flex-col justify-center items-center h-screen">
       {loading && <Spinner />}
@@ -68,10 +78,10 @@ const Login = () => {
         </div>
       </Form>
       <div className="mt-8">
-          <p className="text-center text-xl font-bold">Demo user</p>
-          <p className="text-center">Email: demo@demo.com</p>
-          <p className="text-center">Password: 123456789</p>
-    </div>
+        <p className="text-center text-xl font-bold">Demo user</p>
+        <p className="text-center">Email: demo@demo.com</p>
+        <p className="text-center">Password: 123456789</p>
+      </div>
     </div>
   );
 };
