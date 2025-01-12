@@ -1,7 +1,9 @@
 {
   "proxy": "http://localhost:8080/api/v1",
-  "name": "client",
-  "version": "0.1.0",
+  "name": "expense-tracker-frontend",
+  "homepage": "https://Aricky3.github.io/Fintrack-new",
+  "version": "1.0.0",
+  "description": "Frontend for Expense Tracker",
   "private": true,
   "dependencies": {
     "@ant-design/icons": "^5.1.4",
@@ -18,9 +20,15 @@
     "react-scripts": "5.0.1",
     "web-vitals": "^2.1.4"
   },
+  "devDependencies": {
+    "gh-pages": "^6.3.0",
+    "tailwindcss": "^3.3.2"
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -f -d build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -41,8 +49,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {
-    "tailwindcss": "^3.3.2"
   }
 }

@@ -1,5 +1,6 @@
 {
   "name": "expense-tracker",
+  "homepage": "https://Aricky3.github.io/Fintrack-new",
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
